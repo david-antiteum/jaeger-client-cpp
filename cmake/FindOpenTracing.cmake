@@ -25,10 +25,6 @@
 #   The libraries needed to use OpenTracing
 # ``OpenTracing_VERSION_STRING``
 #   The OpenTracing version
-# ``OpenTracing_HAS_TRACEF``
-#   ``TRUE`` if the ``tracef()`` API is available in the system's LTTng-UST
-# ``OpenTracing_HAS_TRACELOG``
-#   ``TRUE`` if the ``tracelog()`` API is available in the system's LTTng-UST
 
 #=============================================================================
 # Copyright 2018 Mania Abdi, Inc.
@@ -50,8 +46,9 @@ find_path(OpenTracing_INCLUDE_DIRS
     ${OpenTracing_HOME}
     ENV OpenTracing_HOME
   )
+message(STATUS "OpenTracing_INCLUDE_DIRS ${OpenTracing_INCLUDE_DIRS}")
 find_library(OpenTracing_LIBRARIES NAMES
-  libopentracing.a
+  opentracing
   HINTS
     ${OpenTracing_HOME}
     ENV OpenTracing_HOME
@@ -59,12 +56,9 @@ find_library(OpenTracing_LIBRARIES NAMES
 message(STATUS "opentracing libraries ${OpenTracing_LIBRARIES}")
 
 if(OpenTracing_INCLUDE_DIRS AND OpenTracing_LIBRARIES)
-  # find tracef() and tracelog() support
-  set(OpenTracing_HAS_TRACEF 0)
-  set(OpenTracing_HAS_TRACELOG 0)
 
   # will need specifically 1.5.x for successful working with Jaeger
-  set(OpenTracing_VERSION_STRING "1.5.x")
+  set(OpenTracing_VERSION_STRING "1.6.0")
 
   if(NOT TARGET OpenTracing::opentracing)
     add_library(OpenTracing::opentracing SHARED IMPORTED)
@@ -89,8 +83,6 @@ if(OpenTracing_INCLUDE_DIRS AND OpenTracing_LIBRARIES)
   set(OpenTracing_LIBRARIES ${OpenTracing_LIBRARIES} ${CMAKE_DL_LIBS})
 endif()
 
-# handle the QUIETLY and REQUIRED arguments and set LTTNGUST_FOUND to
-# TRUE if all listed variables are TRUE
 include(FindPackageHandleStandardArgs)
 find_package_handle_standard_args(OpenTracing FOUND_VAR OpenTracing_FOUND
                                   REQUIRED_VARS OpenTracing_LIBRARIES

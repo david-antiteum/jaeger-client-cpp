@@ -73,7 +73,7 @@ list(APPEND package_deps thrift)
 hunter_add_package(opentracing-cpp)
 # Not `${hunter_config}` because OpenTracing provides its own
 # OpenTracingConfig.cmake file
-find_package(OpenTracing 1.5.0 REQUIRED)
+find_package(OpenTracing 1.6.0 REQUIRED)
 # Under Windows, link dynamically with OpenTracing
 if (WIN32)
   list(APPEND LIBS OpenTracing::opentracing)
@@ -85,8 +85,8 @@ endif()
 list(APPEND package_deps OpenTracing)
 
 hunter_add_package(nlohmann_json)
-find_package(nlohmann_json CONFIG REQUIRED)
-list(APPEND LIBS nlohmann_json::nlohmann_json)
+find_package(nlohmann_json 2.1.0 ${hunter_config} REQUIRED)
+include_directories(${nlohmann_json_INCLUDE_DIR})
 list(APPEND package_deps nlohmann_json)
 
 option(JAEGERTRACING_BUILD_EXAMPLES "Build examples" ON)
