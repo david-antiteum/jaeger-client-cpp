@@ -36,6 +36,9 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   list(APPEND cxx_flags -Wno-unused-private-field)
 endif()
 
+find_package( Threads )
+list(APPEND link_flags ${CMAKE_THREAD_LIBS_INIT})
+
 if(MSVC)
   add_definitions(-D_SILENCE_CXX17_ITERATOR_BASE_CLASS_DEPRECATION_WARNING)
 
