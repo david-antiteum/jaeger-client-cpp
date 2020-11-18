@@ -45,13 +45,17 @@ find_path(OpenTracing_INCLUDE_DIRS
   HINTS
     ${OpenTracing_HOME}
     ENV OpenTracing_HOME
+  PATH_SUFFIXES
+      include
   )
 message(STATUS "OpenTracing_INCLUDE_DIRS ${OpenTracing_INCLUDE_DIRS}")
 find_library(OpenTracing_LIBRARIES NAMES
-  opentracing
+  opentracing libopentracing
   HINTS
     ${OpenTracing_HOME}
     ENV OpenTracing_HOME
+  PATH_SUFFIXES
+      lib lib64
   )
 message(STATUS "opentracing libraries ${OpenTracing_LIBRARIES}")
 
