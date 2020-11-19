@@ -62,6 +62,9 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND
   message(FATAL_ERROR "Must use gcc >= 4.9")
 endif()
 
+find_package(Boost 1.70 REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+
 hunter_add_package(thrift)
 find_package(thrift ${hunter_config} REQUIRED)
 if(HUNTER_ENABLED)
